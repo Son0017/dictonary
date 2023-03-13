@@ -170,7 +170,7 @@ const SingleWordStyled = styled.div`
     font-size: 14px;
     line-height: 17px;
     /* identical to box height */
-
+    padding-bottom: 50px;
     text-decoration-line: underline;
 
     /* 757575 */
@@ -201,13 +201,6 @@ const NameStyled = styled.div`
     width: 75px;
     height: 75px;
 
-    &:hover {
-      background-color: #a445ed;
-      div {
-        background-color: white;
-      }
-    }
-
     div {
       clip-path: polygon(100% 50%, 0 0, 0 100%);
       background: #a445ed;
@@ -222,6 +215,16 @@ const NameStyled = styled.div`
     line-height: 29px;
     color: #a445ed;
   }
+  ${(props) =>
+    props.durationsOfSong &&
+    css`
+      .img {
+        background-color: #a445ed;
+        div {
+          background-color: white;
+        }
+      }
+    `}
 `;
 
 const Mode = styled.div`
@@ -304,15 +307,6 @@ const NounStyled = styled.div`
       color: #2d2d2d;
     }
   }
-  ${(props) =>
-    props.mode &&
-    css`
-      li {
-        span {
-          color: #ffffff;
-        }
-      }
-    `}
 
   li:not(:last-child) {
     margin-bottom: 13px;
@@ -326,6 +320,12 @@ const NounStyled = styled.div`
 
     color: #757575;
   }
+  ${(props) =>
+    props.durationsOfSong &&
+    css`
+      img {
+      }
+    `}
 `;
 
 const NotFount = styled.div`

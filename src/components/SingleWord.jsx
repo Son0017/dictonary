@@ -7,9 +7,24 @@ function SingleWord({ url, setUrl, mode }) {
   const { data, isPending } = useFetch(
     `https://api.dictionaryapi.dev/api/v2/entries/en/${url}`
   );
-  const handlePlay = () => {
-    let song = new Audio(data[0].phonetics[1].audio);
+
+  const [durationsOfSong, setDurationOfSong] = useState(false);
+
+  const handlePlay = async () => {
+    let musics = data.map((item) => {
+      return item.phonetics.filter((one) => {
+        return one.audio;
+      });
+    });
+
+    let song = new Audio(musics[0][0].audio);
     song.play();
+    song.onplay = () => {
+      setDurationOfSong(true);
+    };
+    song.onended = () => {
+      setDurationOfSong(false);
+    };
   };
   let x = 0;
   return (
@@ -27,7 +42,7 @@ function SingleWord({ url, setUrl, mode }) {
           return (
             <SingleWordStyled key={Math.random()}>
               {i === 0 && (
-                <NameStyled>
+                <NameStyled durationsOfSong={durationsOfSong}>
                   <div>
                     <h1>{item.word}</h1>
                     {item.phonetics &&
@@ -55,7 +70,7 @@ function SingleWord({ url, setUrl, mode }) {
               {item.meanings &&
                 item.meanings.map((meaning) => {
                   return (
-                    <NounStyled key={meaning.partOfSpeech} mode={mode}>
+                    <NounStyled key={Math.random()} mode={mode}>
                       <div className="noun">
                         <h1>{meaning.partOfSpeech} </h1>
                         <div className="line"></div>
@@ -65,7 +80,7 @@ function SingleWord({ url, setUrl, mode }) {
                         {meaning.definitions &&
                           meaning.definitions.map((definition) => {
                             return (
-                              <li key={definition.definition}>
+                              <li key={Math.random()}>
                                 {definition.definition && (
                                   <span>{definition.definition}</span>
                                 )}
@@ -86,7 +101,7 @@ function SingleWord({ url, setUrl, mode }) {
                                 onClick={() => {
                                   setUrl(synonym);
                                 }}
-                                key={synonym}
+                                key={Math.random()}
                               >
                                 {synonym}
                               </span>
