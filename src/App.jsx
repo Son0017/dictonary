@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [font, setFont] = useState("san");
   const [mode, setMode] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("keyboard");
   useEffect(() => {
     const items = localStorage.getItem("mode");
     if (items) {
