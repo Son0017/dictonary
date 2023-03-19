@@ -262,6 +262,7 @@ const NounStyled = styled.div`
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
+    flex-wrap: wrap;
     span {
       color: #a445ed;
       cursor: pointer;
